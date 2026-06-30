@@ -1,0 +1,306 @@
+/* ===== Shared styles for legal pages — refined ===== */
+:root {
+  --blue:        #1E40AF;
+  --blue-dark:   #1E3A8A;
+  --blue-deeper: #172554;
+  --orange:      #EA580C;
+  --orange-hot:  #F97316;
+  --orange-soft: #FFF1E6;
+  --yellow:      #FACC15;
+  --silver:      #94A3B8;
+  --silver-lt:   #CBD5E1;
+  --ink:         #1A1F2E;
+  --ink-soft:    #475569;
+  --paper:      #FCFCFD;
+  --paper-2:     #F4F6FA;
+  --rule:        #E5E8EF;
+  --black:       #0A0A0A;
+  --dark:        #1F2937;
+  --white:       #FFFFFF;
+  --off-white:   #F8FAFC;
+  --grey-bg:     #F1F5F9;
+  --wa-green:    #25D366;
+}
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background: var(--paper-2);
+  line-height: 1.75;
+  font-size: 16.5px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* ============ Top bar ============ */
+.topbar { background: var(--orange); color: var(--white); font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 0.08em; }
+.topbar-inner { max-width: 1280px; margin: 0 auto; padding: 0.7rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.topbar a { display: inline-flex; align-items: center; gap: 0.5rem; }
+.topbar a:hover { opacity: 0.85; }
+
+/* ============ Nav ============ */
+.nav { background: var(--white); border-bottom: 1px solid var(--grey-bg); position: sticky; top: 0; z-index: 50; }
+.nav-inner { max-width: 1280px; margin: 0 auto; padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
+.logo img { height: 64px; }
+.nav-links { display: flex; gap: 1.75rem; align-items: center; font-family: 'Oswald', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.95rem; font-weight: 500; }
+.nav-links a { color: var(--dark); }
+.nav-links a:hover { color: var(--orange); }
+.nav-cta { background: var(--orange); color: var(--white); padding: 0.7rem 1.4rem; font-weight: 600; }
+.nav-cta:hover { background: var(--orange-hot); color: var(--white); }
+.menu-toggle { display: none; background: var(--blue); color: var(--white); padding: 0.7rem 0.9rem; font-size: 1.25rem; }
+
+/* ============ Legal hero — quieter, more elegant ============ */
+.legal-hero {
+  background:
+    linear-gradient(rgba(10,15,35,0.92), rgba(23,37,84,0.88)),
+    url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  color: var(--white);
+  padding: 5.5rem 1.25rem 4.5rem;
+  text-align: center;
+  position: relative;
+}
+.legal-hero::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 0;
+  transform: translateX(-50%);
+  width: 56px; height: 3px;
+  background: var(--orange);
+}
+.legal-hero .eyebrow {
+  font-family: 'Oswald', sans-serif;
+  color: var(--orange);
+  letter-spacing: 0.45em;
+  font-size: 0.78rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+.legal-hero h1 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+}
+.legal-hero .meta {
+  color: rgba(255,255,255,0.6);
+  margin-top: 1.25rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
+}
+
+/* ============ Legal body — cleaner, airier ============ */
+.legal-body {
+  max-width: 760px;
+  margin: -3rem auto 5rem;
+  padding: 3.5rem 1.75rem 4rem;
+  background: var(--paper);
+  position: relative;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.04), 0 24px 48px rgba(15,23,42,0.06);
+  counter-reset: section;
+}
+@media (min-width: 920px) {
+  .legal-body { margin-top: -4rem; padding: 4.5rem 4rem 5rem; }
+}
+
+/* Section headings with numbered counter — clean, no chunky border */
+.legal-body h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  font-size: 1.35rem;
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--rule);
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+}
+/* hide manually-typed "N." numbers — replaced by clean counter badge.
+   This works because the first text is "1." "2." etc. We hide it via a counter prefix. */
+.legal-body h2::before {
+  counter-increment: section;
+  content: counter(section, decimal-leading-zero);
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  color: var(--orange);
+  font-weight: 600;
+  background: var(--orange-soft);
+  padding: 0.32rem 0.6rem;
+  border-radius: 2px;
+  flex-shrink: 0;
+  transform: translateY(-2px);
+}
+.legal-body h2:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.legal-body h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 1.02rem;
+  letter-spacing: 0.01em;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.legal-body p, .legal-body li {
+  color: var(--ink-soft);
+  margin-bottom: 1.1rem;
+  font-size: 1rem;
+}
+.legal-body ul, .legal-body ol {
+  padding-left: 1.4rem;
+  margin-bottom: 1.4rem;
+  margin-top: 0.25rem;
+}
+.legal-body li { margin-bottom: 0.55rem; }
+.legal-body ul li::marker { color: var(--orange); }
+.legal-body ol li::marker { color: var(--orange); font-weight: 600; }
+.legal-body strong { color: var(--ink); font-weight: 600; }
+.legal-body a {
+  color: var(--orange);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+.legal-body a:hover { border-bottom-color: var(--orange); }
+
+/* ============ TOC — softer, one column ============ */
+.legal-toc {
+  background: var(--paper-2);
+  padding: 1.5rem 1.75rem;
+  margin: 0 0 3rem;
+  border-left: 2px solid var(--orange);
+  border-radius: 0 4px 4px 0;
+}
+.legal-toc h4 {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--silver);
+  font-size: 0.72rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.legal-toc ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  columns: 2;
+  column-gap: 2rem;
+}
+@media (max-width: 620px) { .legal-toc ul { columns: 1; } }
+.legal-toc li {
+  font-size: 0.92rem;
+  margin-bottom: 0.5rem;
+  break-inside: avoid;
+  color: var(--ink-soft);
+}
+.legal-toc li::before { content: none; }
+.legal-toc a {
+  color: var(--ink-soft);
+  border-bottom: none;
+  transition: color 0.15s, padding-left 0.15s;
+  display: inline-block;
+}
+.legal-toc a:hover {
+  color: var(--orange);
+  padding-left: 4px;
+  border-bottom: none;
+}
+
+/* ============ Disclaimer — muted, not alarming ============ */
+.disclaimer {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--silver);
+  padding: 1.1rem 1.4rem;
+  margin: 3rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  border-radius: 0 4px 4px 0;
+}
+.disclaimer strong { color: var(--ink); }
+
+/* ============ Footer ============ */
+footer {
+  background: var(--black);
+  color: var(--silver-lt);
+  padding: 3rem 1.25rem 2rem;
+  text-align: center;
+}
+footer .tag {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 0.25em;
+  color: var(--yellow);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+footer .links {
+  display: flex; flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem 1.8rem;
+  margin: 1rem 0;
+  font-size: 0.88rem;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+footer .links a:hover { color: var(--orange); }
+footer .copyright {
+  font-size: 0.78rem;
+  color: var(--silver);
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--dark);
+  letter-spacing: 0.02em;
+}
+
+/* ============ Floating WhatsApp ============ */
+.wa-float {
+  position: fixed;
+  bottom: 1.5rem; right: 1.5rem;
+  width: 56px; height: 56px;
+  background: var(--wa-green);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  z-index: 100;
+  transition: transform 0.2s;
+}
+.wa-float:hover { transform: scale(1.08); }
+.wa-float svg { width: 28px; height: 28px; fill: currentColor; }
+
+/* ============ Mobile ============ */
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .menu-toggle { display: inline-block; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--white); padding: 1rem 1.25rem; gap: 1rem;
+    border-top: 3px solid var(--orange);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  }
+  .nav-links.open .nav-cta { width: 100%; text-align: center; }
+  .topbar-inner .label-long { display: none; }
+}
