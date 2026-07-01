@@ -39,9 +39,9 @@
   .topbar a:hover { opacity: 0.85; }
 
   .nav { background: var(--white); border-bottom: 1px solid var(--grey-bg); position: sticky; top: 0; z-index: 50; }
-  .nav-inner { max-width: 1280px; margin: 0 auto; padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
+  .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0.75rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
   .logo { display: flex; align-items: center; gap: 0.75rem; }
-  .logo img { height: 64px; width: auto; }
+  .logo img { height: 128px; width: auto; }
   .nav-links { display: flex; gap: 1.75rem; align-items: center; font-family: 'Oswald', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.95rem; font-weight: 500; }
   .nav-links a { color: var(--dark); transition: color 0.2s; }
   .nav-links a:hover { color: var(--orange); }
@@ -49,9 +49,12 @@
   .nav-cta:hover { background: var(--orange-hot); color: var(--white); }
   .menu-toggle { display: none; background: var(--blue); color: var(--white); padding: 0.7rem 0.9rem; font-size: 1.25rem; line-height: 1; }
 
+  /* HERO — your yard photo with translucent overlay */
   .hero {
     position: relative; min-height: 88vh;
-    background: linear-gradient(120deg, rgba(10,10,10,0.78) 0%, rgba(23,37,84,0.65) 100%), url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    background:
+      linear-gradient(120deg, rgba(10,10,10,0.72) 0%, rgba(23,37,84,0.62) 100%),
+      url('top-picture.JPG') center/cover no-repeat;
     color: var(--white); display: flex; align-items: center;
   }
   .hero-inner { max-width: 1280px; margin: 0 auto; padding: 5rem 1.25rem; width: 100%; }
@@ -76,6 +79,7 @@
   .section-head .rule { width: 64px; height: 4px; background: var(--orange); margin: 0 auto 1.25rem; }
   .section-head p { color: var(--silver); font-style: italic; max-width: 38ch; margin: 0 auto; font-size: 1.1rem; }
 
+  /* ABOUT */
   .about { background: var(--white); }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
   @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
@@ -88,21 +92,65 @@
   .stat { background: var(--off-white); padding: 1.5rem 1.1rem; border-left: 4px solid var(--orange); }
   .stat .n { font-family: 'Oswald', sans-serif; font-size: 2.3rem; color: var(--blue); font-weight: 700; line-height: 1; }
   .stat .l { color: var(--silver); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; margin-top: 0.4rem; font-family: 'Oswald', sans-serif; }
-  .about-img-wrap { aspect-ratio: 4/5; background: linear-gradient(135deg, var(--blue-dark), var(--blue-deeper)); position: relative; overflow: hidden; }
-  .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-  .about-img-wrap::after { content: "EST. 2005"; position: absolute; bottom: 1.5rem; left: 1.5rem; background: var(--orange); color: var(--white); padding: 0.6rem 1.2rem; font-family: 'Oswald', sans-serif; letter-spacing: 0.2em; font-weight: 600; font-size: 1rem; }
 
+  /* ABOUT SLIDER */
+  .slider {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--blue-deeper);
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.18);
+  }
+  .slide {
+    position: absolute; inset: 0;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+  .slide.active { opacity: 1; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; }
+  .slider-badge {
+    position: absolute; bottom: 1.25rem; left: 1.25rem;
+    background: var(--orange); color: var(--white);
+    padding: 0.6rem 1.2rem;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.2em; font-weight: 600; font-size: 1rem;
+    z-index: 5;
+  }
+  .slider-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(10,10,10,0.45); color: var(--white);
+    width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; line-height: 1;
+    z-index: 5;
+    transition: background 0.2s;
+  }
+  .slider-arrow:hover { background: var(--orange); }
+  .slider-arrow.prev { left: 0.75rem; }
+  .slider-arrow.next { right: 0.75rem; }
+  .slider-dots {
+    position: absolute; bottom: 1.35rem; right: 1.25rem;
+    display: flex; gap: 0.5rem;
+    z-index: 5;
+  }
+  .slider-dot {
+    width: 11px; height: 11px; border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .slider-dot.active { background: var(--orange); transform: scale(1.2); }
+
+  /* CATEGORIES */
   .categories { background: var(--blue); color: var(--white); }
   .categories .section-head h2 { color: var(--white); }
   .categories .section-head p { color: rgba(255,255,255,0.85); }
   .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
   .cat-card { color: var(--white); }
   .cat-card h3 { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-weight: 600; font-size: 1.5rem; letter-spacing: 0.05em; margin-bottom: 1rem; }
-  .cat-media { aspect-ratio: 4/3; overflow: hidden; background: var(--blue-deeper); position: relative; }
-  .cat-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-  .cat-card:hover .cat-media img { transform: scale(1.05); }
-  .cat-media .fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Oswald', sans-serif; font-size: 1.2rem; color: var(--silver-lt); letter-spacing: 0.1em; background: linear-gradient(135deg, var(--blue-dark), var(--blue-deeper)); }
+  .cat-media { aspect-ratio: 4/3; overflow: hidden; background: var(--blue-deeper); }
+  .cat-media img { width: 100%; height: 100%; object-fit: cover; }
 
+  /* PRODUCTS */
   .products { background: var(--off-white); }
   .products-intro { max-width: 60ch; margin: 0 auto 3rem; text-align: justify; color: var(--dark); font-size: 1.05rem; }
   .products-sub { font-family: 'Oswald', sans-serif; font-size: 1.4rem; font-style: italic; color: var(--blue-dark); margin: 0 0 1.5rem; font-weight: 500; }
@@ -117,9 +165,12 @@
   .acc-item.open .acc-panel { max-height: 500px; }
   .acc-panel-inner { padding: 1.25rem 1.5rem; color: var(--dark); }
 
+  /* HOURS — your factory photo behind */
   .hours {
     position: relative;
-    background: linear-gradient(rgba(10,10,10,0.6), rgba(10,10,10,0.6)), url('https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    background:
+      linear-gradient(rgba(10,10,10,0.62), rgba(10,10,10,0.62)),
+      url('slide1.jpeg') center/cover no-repeat;
     color: var(--white); text-align: center; padding: 6rem 1.25rem;
   }
   .hours h2 { font-family: 'Oswald', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; text-transform: uppercase; margin-bottom: 2rem; }
@@ -128,7 +179,7 @@
 
   footer { background: var(--black); color: var(--silver-lt); padding: 4.5rem 1.25rem 2rem; }
   .footer-top { max-width: 1280px; margin: 0 auto; text-align: center; padding-bottom: 3rem; border-bottom: 1px solid var(--dark); }
-  .footer-logo img { height: 110px; width: auto; margin: 0 auto 1.5rem; }
+  .footer-logo img { height: 220px; width: auto; margin: 0 auto 1.5rem; }
   .footer-tag { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.25em; color: var(--yellow); font-size: 1rem; margin-bottom: 1.5rem; }
   .footer-contact { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem 2rem; margin-bottom: 1.5rem; font-size: 0.95rem; }
   .footer-contact a:hover { color: var(--orange); }
@@ -155,6 +206,8 @@
     .menu-toggle { display: inline-block; }
     .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); padding: 1rem 1.25rem; gap: 1rem; border-top: 3px solid var(--orange); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
     .nav-links.open .nav-cta { width: 100%; text-align: center; }
+    .logo img { height: 104px; }
+    .footer-logo img { height: 180px; }
     .hero { min-height: 78vh; }
     .section { padding: 3.5rem 1.25rem; }
     .topbar-inner { font-size: 0.75rem; padding: 0.55rem 1rem; }
@@ -180,7 +233,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="#" class="logo">
-      <img src="ramco-logo.png" alt="Ramco Steel Trading — We Got Africa Covered" />
+      <img src="ramco-logo.PNG" alt="Ramco Steel Trading — We Got Africa Covered" />
     </a>
     <button class="menu-toggle" aria-label="Open menu" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
     <div class="nav-links" id="navlinks">
@@ -226,8 +279,17 @@
         </div>
       </div>
 
-      <div class="about-img-wrap">
-        <img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=900&q=80" alt="Steel coils inside Ramco Steel warehouse" loading="lazy" onerror="this.style.display='none'">
+      <div class="slider" id="aboutSlider">
+        <div class="slide active"><img src="slide1.jpeg" alt="Inside the Ramco Steel manufacturing plant" /></div>
+        <div class="slide"><img src="slide2.JPG" alt="Colour-coated steel coils in the Ramco warehouse" /></div>
+        <div class="slide"><img src="slide3.JPG" alt="Roll-forming machinery at Ramco Steel" /></div>
+        <div class="slide"><img src="slide4.JPG" alt="Steel coils and production line at Ramco Steel" /></div>
+
+        <button class="slider-arrow prev" aria-label="Previous photo" onclick="moveSlide(-1)">‹</button>
+        <button class="slider-arrow next" aria-label="Next photo" onclick="moveSlide(1)">›</button>
+
+        <div class="slider-badge">EST. 2005</div>
+        <div class="slider-dots" id="sliderDots"></div>
       </div>
     </div>
   </div>
@@ -242,15 +304,14 @@
     </div>
 
     <div class="cat-grid">
-      <article class="cat-card"><h3>Hardware</h3><div class="cat-media"><div class="fallback">HARDWARE</div><img src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=800&q=80" alt="Hardware tools and fittings" loading="lazy" onerror="this.style.display='none'"></div></article>
-      <article class="cat-card"><h3>IBR Roofing</h3><div class="cat-media"><div class="fallback">IBR ROOFING</div><img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=800&q=80" alt="IBR steel roof sheeting" loading="lazy" onerror="this.style.display='none'"></div></article>
-      <article class="cat-card"><h3>Galvanised Sheeting</h3><div class="cat-media"><div class="fallback">GALVANISED</div><img src="https://images.unsplash.com/photo-1611844011962-9b39d0a5b3a8?auto=format&fit=crop&w=800&q=80" alt="Corrugated galvanised steel sheeting" loading="lazy" onerror="this.style.display='none'"></div></article>
-      <article class="cat-card"><h3>Square Tubing</h3><div class="cat-media"><div class="fallback">SQUARE TUBING</div><img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=800&q=80" alt="Stacked square steel tubing" loading="lazy" onerror="this.style.display='none'"></div></article>
-      <article class="cat-card"><h3>Round Tubing</h3><div class="cat-media"><div class="fallback">ROUND TUBING</div><img src="https://images.unsplash.com/photo-1572177215152-32f247303126?auto=format&fit=crop&w=800&q=80" alt="Round steel pipes bundled" loading="lazy" onerror="this.style.display='none'"></div></article>
-      <article class="cat-card"><h3>Rectangular Tubing</h3><div class="cat-media"><div class="fallback">RECT. TUBING</div><img src="https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?auto=format&fit=crop&w=800&q=80" alt="Rectangular steel hollow sections" loading="lazy" onerror="this.style.display='none'"></div></article>
-      <article class="cat-card"><h3>Angle Iron</h3><div class="cat-media"><div class="fallback">ANGLE IRON</div><img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80" alt="Steel angle iron stacked" loading="lazy" onerror="this.style.display='none'"></div></article>
-      <article class="cat-card"><h3>Ridging &amp; Flashings</h3><div class="cat-media"><div class="fallback">RIDGING</div><img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=800&q=80" alt="Roof ridge capping and flashings" loading="lazy" onerror="this.style.display='none'"></div></article>
-      <article class="cat-card"><h3>Chromadek Sheeting</h3><div class="cat-media"><div class="fallback">CHROMADEK</div><img src="https://images.unsplash.com/photo-1604762524889-3e2fcc145683?auto=format&fit=crop&w=800&q=80" alt="Colour-coated Chromadek roof sheeting" loading="lazy" onerror="this.style.display='none'"></div></article>
+      <article class="cat-card"><h3>Hardware</h3><div class="cat-media"><img src="hardware.JPG" alt="Hardware — tools, fasteners, nails, bolts and fittings" loading="lazy"></div></article>
+      <article class="cat-card"><h3>IBR Roofing</h3><div class="cat-media"><img src="ibr.jpeg" alt="IBR steel roof sheeting" loading="lazy"></div></article>
+      <article class="cat-card"><h3>Galvanised Sheeting</h3><div class="cat-media"><img src="galv-sheeting.jpg" alt="Corrugated galvanised steel sheeting" loading="lazy"></div></article>
+      <article class="cat-card"><h3>Square Tubing</h3><div class="cat-media"><img src="squ-tubing.jpg" alt="Stacked square steel tubing" loading="lazy"></div></article>
+      <article class="cat-card"><h3>Round Tubing</h3><div class="cat-media"><img src="round-tubing.jpg" alt="Round steel pipes bundled" loading="lazy"></div></article>
+      <article class="cat-card"><h3>Rectangular Tubing</h3><div class="cat-media"><img src="rect-tubing.jpg" alt="Rectangular steel hollow sections" loading="lazy"></div></article>
+      <article class="cat-card"><h3>Devil Forks</h3><div class="cat-media"><img src="dev-fork.JPG" alt="Devil fork security fencing panels" loading="lazy"></div></article>
+      <article class="cat-card"><h3>Chromadek Sheeting</h3><div class="cat-media"><img src="chromadek.jpg" alt="Colour-coated Chromadek roof sheeting" loading="lazy"></div></article>
     </div>
   </div>
 </section>
@@ -277,8 +338,7 @@
       <div class="acc-item"><button class="acc-trigger" onclick="toggleAcc(this)">+ Square Tubing<span class="acc-icon">+</span></button><div class="acc-panel"><div class="acc-panel-inner">Mild steel square hollow sections from 12 × 12 mm up to 100 × 100 mm. Standard 6 m lengths, with wall thicknesses of 1.2 mm, 1.5 mm, 1.9 mm and heavier on request. Ideal for gates, frames, and structural work.</div></div></div>
       <div class="acc-item"><button class="acc-trigger" onclick="toggleAcc(this)">+ Round Tubing<span class="acc-icon">+</span></button><div class="acc-panel"><div class="acc-panel-inner">Mild steel and galvanised round tubing in a wide range of diameters. Standard 6 m lengths. Used widely in handrails, frames, fencing, and general fabrication.</div></div></div>
       <div class="acc-item"><button class="acc-trigger" onclick="toggleAcc(this)">+ Rectangular Tubing<span class="acc-icon">+</span></button><div class="acc-panel"><div class="acc-panel-inner">Mild steel rectangular hollow sections in popular sizes from 38 × 25 mm up to 100 × 50 mm and larger on request. Standard 6 m lengths. The go-to section for gates, trailers, awnings, and structural framing.</div></div></div>
-      <div class="acc-item"><button class="acc-trigger" onclick="toggleAcc(this)">+ Angle Iron<span class="acc-icon">+</span></button><div class="acc-panel"><div class="acc-panel-inner">Equal and unequal mild steel angle bar from 25 × 25 mm upwards, in standard 6 m lengths. Suited to brackets, frames, supports, and reinforcing.</div></div></div>
-      <div class="acc-item"><button class="acc-trigger" onclick="toggleAcc(this)">+ Ridging &amp; Flashings<span class="acc-icon">+</span></button><div class="acc-panel"><div class="acc-panel-inner">Pre-formed ridge capping, side flashings, barge boards, and bullnoses to finish your roof neatly. Colour-matched to our Chromadek profiles. Custom flashings available on request.</div></div></div>
+      <div class="acc-item"><button class="acc-trigger" onclick="toggleAcc(this)">+ Devil Forks<span class="acc-icon">+</span></button><div class="acc-panel"><div class="acc-panel-inner">The classic South African security fencing. Devil fork panels with pointed spear tops, supplied with matching posts and ready for installation. Strong, low-maintenance, and an effective deterrent for homes, businesses, schools, and industrial sites. Various panel heights available.</div></div></div>
       <div class="acc-item"><button class="acc-trigger" onclick="toggleAcc(this)">+ Chromadek Sheeting<span class="acc-icon">+</span></button><div class="acc-panel"><div class="acc-panel-inner">Pre-painted galvanised steel sheeting available in a full range of colours, letting clients personalise their projects efficiently. Up to 80% lighter than concrete roofing and engineered for South Africa's harsh climate.</div></div></div>
     </div>
   </div>
@@ -291,7 +351,7 @@
 
 <footer id="contact">
   <div class="footer-top">
-    <div class="footer-logo"><img src="ramco-logo.png" alt="Ramco Steel Trading" /></div>
+    <div class="footer-logo"><img src="ramco-logo.PNG" alt="Ramco Steel Trading" /></div>
     <div class="footer-tag">We Got Africa Covered</div>
 
     <div class="footer-contact">
@@ -333,8 +393,7 @@
         <li><a href="#products">Square Tubing</a></li>
         <li><a href="#products">Round Tubing</a></li>
         <li><a href="#products">Rectangular Tubing</a></li>
-        <li><a href="#products">Angle Iron</a></li>
-        <li><a href="#products">Ridging &amp; Flashings</a></li>
+        <li><a href="#products">Devil Forks</a></li>
         <li><a href="#products">Chromadek Sheeting</a></li>
       </ul>
     </div>
@@ -372,6 +431,7 @@
 </a>
 
 <script>
+  /* ===== Accordion ===== */
   function toggleAcc(btn) {
     const item = btn.parentElement;
     item.classList.toggle('open');
@@ -381,6 +441,39 @@
       btn.innerHTML = btn.innerHTML.replace(/^— /, '+ ');
     }
   }
+
+  /* ===== About slider ===== */
+  const slides = document.querySelectorAll('#aboutSlider .slide');
+  const dotsWrap = document.getElementById('sliderDots');
+  let current = 0;
+  let timer;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'slider-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Go to photo ' + (i + 1));
+    d.onclick = () => goToSlide(i);
+    dotsWrap.appendChild(d);
+  });
+  const dots = dotsWrap.querySelectorAll('.slider-dot');
+
+  function goToSlide(i) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (i + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    restartTimer();
+  }
+  function moveSlide(dir) { goToSlide(current + dir); }
+  function restartTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goToSlide(current + 1), 4500);
+  }
+  restartTimer();
+
+  /* ===== Year ===== */
   document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
 
